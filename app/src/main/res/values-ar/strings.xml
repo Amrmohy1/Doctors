@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Doctors</string>
+    <string name="create_account">انشاء حساب</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="sign_up">انشاء حساب</string>
+    <string name="confirm_password">تاكيد كلمة المرور</string>"
+    <string name="email_required">البريد الالكتروني مطلوب</string>
+    <string name="password_required">كلمة المرور مطلوبه</string>
+
+    <string name="email_invalid">البريد الإلكتروني غير صالح</string>
+    <string name="password_too_short">يجب أن تكون كلمة المرور 8 أحرف على الأقل</string>
+
+    <!-- Confirm Password -->
+    <string name="passwords_do_not_match">كلمات المرور غير متطابقة</string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="have_no_account">لا امتلك حساب ؟</string>
+    <string name="have_account">ليدي حساب بالفعل ؟</string>
+
+</resources>
