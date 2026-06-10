@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "457462958762",
+    "project_id": "doctors-f1ad2",
+    "storage_bucket": "doctors-f1ad2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457462958762:android:f9aabb6dccd72e0b339ed3",
+        "android_client_info": {
+          "package_name": "com.example.doctors"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaBnxVwuDff7olZVG-AC1OB_rBqNG323I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

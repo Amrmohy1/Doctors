@@ -1,5 +1,7 @@
 package com.example.doctors.authentication
 
+import android.widget.Toast
+import androidx.collection.emptyLongSet
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -21,6 +23,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,10 +32,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -43,20 +49,32 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.doctors.R
 import com.example.doctors.Routes
 
 @Composable
-fun SignIn(navController: NavController,modifier: Modifier = Modifier) {
+fun SignIn(navController: NavController,modifier: Modifier = Modifier,viewModel: AuthViewModel= viewModel()) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var errorEmail by remember { mutableStateOf<String?>(null) }
     var passwordVisible by remember { mutableStateOf(false) }
     var errorPassword by remember { mutableStateOf<String?>(null) }
-    val isFormValid = errorEmail==null &&
-            errorPassword==null
+    val authState by viewModel.authState.collectAsState()
+
+    val context = LocalContext.current
+    LaunchedEffect(authState) {
+        when(authState){
+            is AuthState.Authenticated->{navController.navigate(Routes.home)
+                Toast.makeText(context, "successfully logged in", Toast.LENGTH_SHORT).show()
+            }
+            is AuthState.ErrorMassage-> Toast.makeText(context, (authState as AuthState.ErrorMassage).massage, Toast.LENGTH_SHORT).show()
+            else -> {}
+        }
+    }
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -162,7 +180,7 @@ fun SignIn(navController: NavController,modifier: Modifier = Modifier) {
                 .clickable(
                     indication = null,
                     interactionSource = remember { MutableInteractionSource() }
-                ){
+                ) {
                     navController.navigate(Routes.signUp)
                 }
                 .fillMaxWidth()
@@ -172,9 +190,11 @@ fun SignIn(navController: NavController,modifier: Modifier = Modifier) {
             onClick = {
                 errorEmail = Validator.getEmailError(email)
                 errorPassword = Validator.getPasswordError(password)
-//                if(isFormValid){
-//                    navController.navigate(Routes.home)
-//                }
+                val isFormValid = errorEmail==null &&
+                        errorPassword==null
+                if(isFormValid){
+                   viewModel.signIn(email,password)
+                }
             },
             colors = ButtonDefaults.buttonColors(Color.Blue),
             modifier= Modifier
@@ -186,6 +206,22 @@ fun SignIn(navController: NavController,modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold,
             )
         }
+        Text(
+            text = stringResource(R.string.forgot_password),
+            fontWeight = FontWeight.Bold,
+            color = Color.Blue,
+            textDecoration= TextDecoration.Underline,
+            textAlign = TextAlign.Start,
+            modifier= Modifier
+                .fillMaxWidth()
+                .padding(top = 15.dp)
+                .clickable(
+                    indication = null,
+                    interactionSource = remember { MutableInteractionSource() }
+                ){
+                    navController.navigate(Routes.forgotPassword)
+                }
+        )
     }
 }
 

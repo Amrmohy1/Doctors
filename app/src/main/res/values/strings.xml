@@ -15,5 +15,8 @@
     <string name="sign_in">Sign In</string>
     <string name="have_no_account">Do not have an account?</string>
     <string name="have_account">Already have account?</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="send">send</string>
+
 
 </resources>

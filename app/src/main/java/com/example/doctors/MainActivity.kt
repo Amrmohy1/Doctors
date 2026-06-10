@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.doctors.authentication.ForgotPassword
 import com.example.doctors.authentication.SignIn
 import com.example.doctors.authentication.SignUp
 import com.example.doctors.ui.theme.DoctorsTheme
@@ -27,6 +28,12 @@ class MainActivity : ComponentActivity() {
                 }
                 composable(Routes.signUp){
                     SignUp(navController=navController)
+                }
+                composable(Routes.home){
+                    Home(navController=navController)
+                }
+                composable(Routes.forgotPassword){
+                    ForgotPassword(navController=navController)
                 }
             } )
         }

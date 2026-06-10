@@ -17,5 +17,8 @@
     <string name="sign_in">تسجيل الدخول</string>
     <string name="have_no_account">لا امتلك حساب ؟</string>
     <string name="have_account">ليدي حساب بالفعل ؟</string>
+    <string name="forgot_password">نسيت كلمة المرور ؟</string>
+    <string name="send">ارسال</string>
+
 
 </resources>

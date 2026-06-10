@@ -1,6 +1,7 @@
 package com.example.doctors.authentication
 
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,12 +15,15 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,6 +48,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -52,7 +57,7 @@ import com.example.doctors.R
 import com.example.doctors.Routes
 
 @Composable
-fun SignUp(modifier: Modifier = Modifier,navController: NavController) {
+fun SignUp(modifier: Modifier = Modifier,navController: NavController,viewModel: AuthViewModel=viewModel()) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -62,12 +67,24 @@ fun SignUp(modifier: Modifier = Modifier,navController: NavController) {
     var errorPassword by remember { mutableStateOf<String?>(null) }
     var errorConfirmPassword by remember { mutableStateOf<String?>(null) }
 
-    val isFormValid = errorEmail==null &&
-            errorPassword==null &&
-            errorConfirmPassword==null &&
-            email.isNotBlank() &&
-            password.isNotBlank()
+
+
     val context = LocalContext.current
+    val authState by viewModel.authState.collectAsState()
+    LaunchedEffect(authState) {
+        when (authState) {
+            is AuthState.Authenticated -> {
+                Toast.makeText(context, "تمت العملية بنجاح!", Toast.LENGTH_SHORT).show()
+                navController.navigate(Routes.signIn) {
+                    popUpTo(Routes.signUp) { inclusive = true }
+                }
+            }
+            is AuthState.ErrorMassage -> {
+                Toast.makeText(context, (authState as AuthState.ErrorMassage).massage, Toast.LENGTH_SHORT).show()
+            }
+            else -> {}
+        }
+    }
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -85,13 +102,13 @@ fun SignUp(modifier: Modifier = Modifier,navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
         )
-        Spacer(modifier=Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(30.dp))
         OutlinedTextField(
             value = email,
             onValueChange =
                 {
                     email = it
-                    if(errorEmail != null) errorEmail=null
+                    if (errorEmail != null) errorEmail = null
                 },
             label = { Text(stringResource(R.string.email)) },
 
@@ -100,11 +117,13 @@ fun SignUp(modifier: Modifier = Modifier,navController: NavController) {
             ),
             isError = errorEmail != null,
             supportingText = {
-                if (errorEmail !=null){
-                    Text(text = errorEmail!!,
+                if (errorEmail != null) {
+                    Text(
+                        text = errorEmail!!,
                         color = MaterialTheme.colorScheme.error
                     )
-                }},
+                }
+            },
             modifier = Modifier
                 .fillMaxWidth()
         )
@@ -114,39 +133,41 @@ fun SignUp(modifier: Modifier = Modifier,navController: NavController) {
             onValueChange =
                 {
                     password = it
-                    if(errorPassword !=null)errorPassword=null
+                    if (errorPassword != null) errorPassword = null
                 },
             label = { Text(stringResource(R.string.password)) },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password
             ),
-            visualTransformation =if (passwordVisible){
+            visualTransformation = if (passwordVisible) {
                 VisualTransformation.None
-            }else{
+            } else {
                 PasswordVisualTransformation()
-            }
-            ,
+            },
             trailingIcon = {
-                IconButton (
-                    onClick = {passwordVisible = !passwordVisible}
+                IconButton(
+                    onClick = { passwordVisible = !passwordVisible }
                 ) {
                     Icon(
-                        imageVector = if (passwordVisible){
+                        imageVector = if (passwordVisible) {
                             Icons.Default.VisibilityOff
-                        }else{
+                        } else {
                             Icons.Default.Visibility
                         },
                         contentDescription = null
                     )
                 }
             },
-           isError = errorPassword != null,
-            supportingText = {if(errorPassword !=null){
-                Text(text = errorPassword!!,
-                    color = MaterialTheme.colorScheme.error
-                )
-            }},
-            modifier=Modifier
+            isError = errorPassword != null,
+            supportingText = {
+                if (errorPassword != null) {
+                    Text(
+                        text = errorPassword!!,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            },
+            modifier = Modifier
                 .fillMaxWidth()
         )
 
@@ -155,25 +176,26 @@ fun SignUp(modifier: Modifier = Modifier,navController: NavController) {
             onValueChange =
                 {
                     confirmPassword = it
-                    if(errorConfirmPassword !=null)errorConfirmPassword=null
+                    if (errorConfirmPassword != null) errorConfirmPassword = null
                 },
             label = { Text(stringResource(R.string.confirm_password)) },
-            keyboardOptions =KeyboardOptions(
-                keyboardType = KeyboardType.Password),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password
+            ),
             visualTransformation =
-                if(confirmPasswordVisible){
+                if (confirmPasswordVisible) {
                     VisualTransformation.None
-            }else{
-                PasswordVisualTransformation()
-            },
+                } else {
+                    PasswordVisualTransformation()
+                },
             trailingIcon = {
                 IconButton(
-                    onClick = {confirmPasswordVisible= !confirmPasswordVisible}
+                    onClick = { confirmPasswordVisible = !confirmPasswordVisible }
                 ) {
                     Icon(
-                        imageVector = if (confirmPasswordVisible){
+                        imageVector = if (confirmPasswordVisible) {
                             Icons.Default.VisibilityOff
-                        }else{
+                        } else {
                             Icons.Default.Visibility
                         },
                         contentDescription = null
@@ -181,62 +203,75 @@ fun SignUp(modifier: Modifier = Modifier,navController: NavController) {
                 }
             },
             isError = errorConfirmPassword != null,
-            supportingText = {if(errorConfirmPassword !=null){
-                Text(text = errorConfirmPassword!!,
-                    color = MaterialTheme.colorScheme.error
-                )
-            }},
-            modifier= Modifier
+            supportingText = {
+                if (errorConfirmPassword != null) {
+                    Text(
+                        text = errorConfirmPassword!!,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            },
+            modifier = Modifier
                 .fillMaxWidth()
         )
-        Text(text= buildAnnotatedString {
+        Text(
+            text = buildAnnotatedString {
 
-            append(stringResource(R.string.have_account)+" ")
-            withLink(
-                LinkAnnotation.Clickable(tag="sign_in", linkInteractionListener = {
-                    navController.navigate(Routes.signIn)
-                })
-            )
-            {
-                withStyle(
-                    style = SpanStyle(
-                        color = Color.Blue,
-                        fontWeight = FontWeight.Bold,
-                        textDecoration = TextDecoration.Underline
-                    )
-                ){
-                    append(stringResource(R.string.sign_in))
+                append(stringResource(R.string.have_account) + " ")
+                withLink(
+                    LinkAnnotation.Clickable(tag = "sign_in", linkInteractionListener = {
+                        navController.navigate(Routes.signIn)
+                    })
+                )
+                {
+                    withStyle(
+                        style = SpanStyle(
+                            color = Color.Blue,
+                            fontWeight = FontWeight.Bold,
+                            textDecoration = TextDecoration.Underline
+                        )
+                    ) {
+                        append(stringResource(R.string.sign_in))
+                    }
+
                 }
-
-            }
-        },
+            },
             textAlign = TextAlign.Start,
 
-            modifier= Modifier
+            modifier = Modifier
                 .fillMaxWidth()
 
         )
-        Spacer(modifier=Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
-        Button(onClick = {
-            errorEmail = Validator.getEmailError(email)
-            errorPassword = Validator.getPasswordError(password)
-            errorConfirmPassword = Validator.getConfirmPasswordError(password, confirmPassword)
-
-            if(isFormValid){
-                navController.navigate(Routes.signIn)
-               //connect to server
-            }
-        },
+        Button(
+            onClick = {
+                errorEmail = Validator.getEmailError(email)
+                errorPassword = Validator.getPasswordError(password)
+                errorConfirmPassword = Validator.getConfirmPasswordError(password, confirmPassword)
+                val isFormValid = errorEmail==null &&
+                        errorPassword==null &&
+                        errorConfirmPassword==null &&
+                        email.isNotBlank() &&
+                        password.isNotBlank()
+                if (isFormValid) {
+                    viewModel.signUp(email, password)
+                }
+            },
             colors = ButtonDefaults.buttonColors(Color.Blue),
-            modifier= Modifier
-                .fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth(),
+            enabled = authState !is AuthState.Loading
         ) {
-           Text(
-               text=stringResource(R.string.create_account,),
-               fontSize = 20.sp,
-               fontWeight = FontWeight.Bold,
-           )
+            if (authState is AuthState.Loading) {
+                CircularProgressIndicator(color = Color.White) // إظهار مؤشر التحميل داخل الزر بشكل صحيح
+            } else {
+                Text(
+                    text = stringResource(R.string.create_account,),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
         }
     }
 }
