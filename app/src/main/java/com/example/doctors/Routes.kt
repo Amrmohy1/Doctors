@@ -5,4 +5,6 @@ object Routes {
     val signUp ="sign_up"
     val home ="home"
     val forgotPassword ="forgot_password"
+    val doctorWithSpeciality ="doctors/{specialtyName}"
+    val specialtise ="specialties"
 }

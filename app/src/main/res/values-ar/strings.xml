@@ -20,5 +20,21 @@
     <string name="forgot_password">نسيت كلمة المرور ؟</string>
     <string name="send">ارسال</string>
 
+    <string name="specialities">تخصصات الاطباء</string>
+    <!-- Specialties -->
+    <string name="cardiology">أمراض القلب</string>
+    <string name="dermatology">الأمراض الجلدية</string>
+    <string name="orthopedics">العظام</string>
+    <string name="pediatrics">طب الأطفال</string>
+    <string name="ophthalmology">طب العيون</string>
+    <string name="ent">الأنف والأذن والحنجرة</string>
+    <string name="dentistry">طب الأسنان</string>
+    <string name="general_surgery">الجراحة العامة</string>
+    <string name="internal_medicine">الباطنة</string>
+    <string name="gynecology">النساء والتوليد</string>
+    <string name="urology">المسالك البولية</string>
+    <string name="pulmonology">الأمراض الصدرية</string>
+    <string name="vascular_surgery"> الأوعية الدموية</string>
+    <string name="neurosurgery"> المخ والأعصاب</string>
 
 </resources>

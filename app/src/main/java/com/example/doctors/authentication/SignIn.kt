@@ -68,7 +68,12 @@ fun SignIn(navController: NavController,modifier: Modifier = Modifier,viewModel:
     val context = LocalContext.current
     LaunchedEffect(authState) {
         when(authState){
-            is AuthState.Authenticated->{navController.navigate(Routes.home)
+            is AuthState.Authenticated->{
+                navController.navigate(Routes.home){
+                    popUpTo(Routes.signIn){
+                        inclusive=true
+                    }
+                }
                 Toast.makeText(context, "successfully logged in", Toast.LENGTH_SHORT).show()
             }
             is AuthState.ErrorMassage-> Toast.makeText(context, (authState as AuthState.ErrorMassage).massage, Toast.LENGTH_SHORT).show()

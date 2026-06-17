@@ -1,22 +1,73 @@
 <resources>
     <string name="app_name">Doctors</string>
-    <string name="create_account">Create Account</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="sign_up">Sign Up</string>
-    <string name="confirm_password">Confirm Password</string>"
-    <string name="email_required">Email is required</string>
-    <string name="password_required">Password is required</string>
-    <string name="email_invalid">Invalid email address</string>
-    <string name="password_too_short">Password must be at least 8 characters long</string>
+    <string name="create_account">انشاء حساب</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="sign_up">انشاء حساب</string>
+    <string name="confirm_password">تاكيد كلمة المرور</string>"
+    <string name="email_required">البريد الالكتروني مطلوب</string>
+    <string name="password_required">كلمة المرور مطلوبه</string>
+
+    <string name="email_invalid">البريد الإلكتروني غير صالح</string>
+    <string name="password_too_short">يجب أن تكون كلمة المرور 8 أحرف على الأقل</string>
 
     <!-- Confirm Password -->
-    <string name="passwords_do_not_match">Passwords do not match</string>
-    <string name="sign_in">Sign In</string>
-    <string name="have_no_account">Do not have an account?</string>
-    <string name="have_account">Already have account?</string>
-    <string name="forgot_password">Forgot Password ?</string>
-    <string name="send">send</string>
+    <string name="passwords_do_not_match">كلمات المرور غير متطابقة</string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="have_no_account">لا امتلك حساب ؟</string>
+    <string name="have_account">ليدي حساب بالفعل ؟</string>
+    <string name="forgot_password">نسيت كلمة المرور ؟</string>
+    <string name="send">ارسال</string>
+<!--    <string name="create_account">Create Account</string>-->
+<!--    <string name="email">Email</string>-->
+<!--    <string name="password">Password</string>-->
+<!--    <string name="sign_up">Sign Up</string>-->
+<!--    <string name="confirm_password">Confirm Password</string>"-->
+<!--    <string name="email_required">Email is required</string>-->
+<!--    <string name="password_required">Password is required</string>-->
+<!--    <string name="email_invalid">Invalid email address</string>-->
+<!--    <string name="password_too_short">Password must be at least 8 characters long</string>-->
 
+<!--    &lt;!&ndash; Confirm Password &ndash;&gt;-->
+<!--    <string name="passwords_do_not_match">Passwords do not match</string>-->
+<!--    <string name="sign_in">Sign In</string>-->
+<!--    <string name="have_no_account">Do not have an account?</string>-->
+<!--    <string name="have_account">Already have account?</string>-->
+<!--    <string name="forgot_password">Forgot Password ?</string>-->
+<!--    <string name="send">send</string>-->
 
+    <string name="specialities">تخصصات الاطباء</string>
+    <string name="cardiology">أمراض القلب</string>
+    <string name="dermatology">الأمراض الجلدية</string>
+    <string name="orthopedics">العظام</string>
+    <string name="pediatrics">طب الأطفال</string>
+    <string name="ophthalmology">طب العيون</string>
+    <string name="ent">الأنف والأذن والحنجرة</string>
+    <string name="dentistry">طب الأسنان</string>
+    <string name="general_surgery">الجراحة العامة</string>
+    <string name="internal_medicine">الباطنة</string>
+    <string name="gynecology">النساء والتوليد</string>
+    <string name="urology">المسالك البولية</string>
+
+    <string name="pulmonology">الأمراض الصدرية</string>
+    <string name="vascular_surgery"> الأوعية الدموية</string>
+    <string name="neurosurgery"> المخ والأعصاب</string>
+    <!-- Specialties
+    <string name="cardiology">Cardiology</string>
+    <string name="dermatology">Dermatology</string>
+    <string name="orthopedics">Orthopedics</string>
+    <string name="pediatrics">Pediatrics</string>
+    <string name="ophthalmology">Ophthalmology</string>
+    <string name="ent">Ear, Nose and Throat (ENT)</string>
+    <string name="dentistry">Dentistry</string>
+    <string name="general_surgery">General Surgery</string>
+    <string name="internal_medicine">Internal Medicine</string>
+    <string name="gynecology">Obstetrics and Gynecology</string>
+    <string name="urology">Urology</string>
+    <string name="oncology">Oncology</string>
+    <string name="pulmonology">Pulmonology</string>
+    <string name="endocrinology">Endocrinology</string>
+    <string name="vascular_surgery">Vascular Surgery</string>
+    <string name="neurosurgery">Neurosurgery</string>
+    -->
 </resources>

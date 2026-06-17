@@ -20,24 +20,24 @@ object Validator {
 
     fun getEmailError(email: String): String?{
          return when {
-             email.isBlank()->"Email is required"
-             !isEmailValid(email)-> "Invalid email address"
+             email.isBlank()->"البريد الالكتروني مطلوب"
+             !isEmailValid(email)-> "البريد الإلكتروني غير صالح"
              else -> null
          }
     }
 
     fun getPasswordError(password: String): String?{
         return when {
-            password.isBlank()-> "Password is required"
-            !isValidPassword(password)-> "Password must be at least 8 characters long"
+            password.isBlank()-> "كلمة المرور مطلوب"
+            !isValidPassword(password)-> "يجب أن تكون كلمة المرور 8 أحرف على الأقل"
             else -> null
         }
     }
 
     fun getConfirmPasswordError(password: String, confirmPassword: String): String?{
         return when {
-            confirmPassword.isBlank()-> "Confirm password is required"
-            password != confirmPassword-> "Passwords do not match"
+            confirmPassword.isBlank()-> "اكيد كلمة المرور مطلوب"
+            password != confirmPassword-> "كلمات المرور غير متطابقة"
             else -> null
         }
     }
